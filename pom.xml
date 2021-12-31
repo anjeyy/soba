@@ -12,6 +12,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <junit.version>5.8.2</junit.version>
+    <sl4j.version>1.7.32</sl4j.version>
     <org.testfx.version>4.0.16-alpha</org.testfx.version>
   </properties>
 
@@ -54,6 +55,16 @@
       <groupId>com.jfoenix</groupId>
       <artifactId>jfoenix</artifactId>
       <version>9.0.10</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${sl4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>${sl4j.version}</version>
     </dependency>
 
     <!-- test -->
@@ -109,7 +120,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>org.anjeyy.soba/org.anjeyy.soba.HelloApplication</mainClass>
+              <mainClass>org.anjeyy.soba/org.anjeyy.soba.SobaApplication</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>
