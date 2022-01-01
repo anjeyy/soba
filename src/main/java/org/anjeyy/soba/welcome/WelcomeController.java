@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import org.anjeyy.soba.ScreenManager;
+import org.anjeyy.soba.common.ScreenManager;
 
 public class WelcomeController {
 

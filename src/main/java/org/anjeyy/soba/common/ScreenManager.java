@@ -1,4 +1,4 @@
-package org.anjeyy.soba;
+package org.anjeyy.soba.common;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -43,11 +43,9 @@ public enum ScreenManager {
         return new Scene(root, width * 3 / 4, height * 3 / 4);
     }
 
-    public double getWidth() {
-        return width;
+    public static Rectangle2D getPhysicalScreenBounds() {
+        Screen currentScreen = Screen.getPrimary();
+        return currentScreen.getBounds();
     }
 
-    public double getHeight() {
-        return height;
-    }
 }

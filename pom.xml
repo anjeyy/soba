@@ -101,6 +101,15 @@
   </dependencies>
 
   <build>
+
+    <!--    <resources>-->
+    <!--      <resource>-->
+    <!--        <directory>src/main/resources/css-style</directory>-->
+    <!--        <includes>-->
+    <!--          <include>main.css</include>-->
+    <!--        </includes>-->
+    <!--      </resource>-->
+    <!--    </resources>-->
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

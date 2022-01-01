@@ -9,4 +9,6 @@ module org.anjeyy.soba {
 
     opens org.anjeyy.soba to javafx.fxml;
     exports org.anjeyy.soba;
+    exports org.anjeyy.soba.common;
+    opens org.anjeyy.soba.common to javafx.fxml;
 }
