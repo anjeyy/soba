@@ -1,6 +1,7 @@
 module org.anjeyy.soba {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.graphics;
     requires com.jfoenix;
 
     requires org.controlsfx.controls;

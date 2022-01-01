@@ -35,6 +35,7 @@ public class WindowToolbarView implements ViewableScene {
 
     private static JFXButton createMinimizeButton() {
         JFXButton minimize = new JFXButton("-");
+        minimize.setId("minimizeButton");
         addCustomStylesheet(minimize, JFX_BUTTON_CSS_CLASS);
         minimize.setOnAction(event -> {
             Stage stage = StageManager.extractStage(minimize);
@@ -45,6 +46,7 @@ public class WindowToolbarView implements ViewableScene {
 
     private JFXButton createMaximizeButton() {
         JFXButton maximize = new JFXButton("□");
+        maximize.setId("maximizeButton");
         addCustomStylesheet(maximize, JFX_BUTTON_CSS_CLASS);
         maximize.setOnAction(event -> {
             boolean alteredMaximize = alterMaximizeButton();
@@ -66,6 +68,7 @@ public class WindowToolbarView implements ViewableScene {
 
     private static JFXButton createCloseButton() {
         JFXButton close = new JFXButton("x");
+        close.setId("closeButton");
         addCustomStylesheet(close, JFX_BUTTON_CSS_CLASS);
         close.setOnAction(event -> Platform.exit());
         return close;
