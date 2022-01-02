@@ -2,11 +2,16 @@ package org.anjeyy.soba.window;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToolbar;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Objects;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.anjeyy.soba.common.Coordinate;
 import org.anjeyy.soba.common.ScreenManager;
@@ -19,6 +24,8 @@ public class WindowToolbarView implements ViewableScene {
 
     private final WindowToolbarController windowToolbarController;
     private final WindowToolbarModel windowToolbarModel;
+    private final JFXButton appImageButton;
+    private final JFXButton appSloganButton;
     private final JFXButton minimizeButton;
     private final JFXButton maximizeButton;
     private final JFXButton closeButton;
@@ -27,10 +34,43 @@ public class WindowToolbarView implements ViewableScene {
     public WindowToolbarView(WindowToolbarController windowToolbarController, WindowToolbarModel windowToolbarModel) {
         this.windowToolbarController = windowToolbarController;
         this.windowToolbarModel = windowToolbarModel;
+        this.appImageButton = createApplicationImageButton();
+        this.appSloganButton = createApplicationTitleBar();
         this.minimizeButton = createMinimizeButton();
         this.maximizeButton = createMaximizeButton();
         this.closeButton = createCloseButton();
         this.jfxToolbar = createRootToolbar();
+    }
+
+    private JFXButton createApplicationImageButton() {
+        JFXButton jfxButton = new JFXButton();
+        jfxButton.setId("appImage");
+        jfxButton.setDisable(true);
+        jfxButton.setMinSize(30, 35);
+        jfxButton.setMaxSize(30, 35);
+        jfxButton.setPadding(new Insets(0, 0, 0, 10));
+        createIconImage(jfxButton);
+        addCustomStylesheet(jfxButton, "window-jfx-title-bar-icon");
+        return jfxButton;
+    }
+
+    private void createIconImage(JFXButton jfxButton) {
+        InputStream inputStream = Objects.requireNonNull(
+            getClass().getResourceAsStream("/image/icon-high-res.png"), "Could not load image.");
+        Image rawAppImage = new Image(inputStream);
+        ImageView appImageView = new ImageView(rawAppImage);
+        appImageView.fitWidthProperty().bind(jfxButton.widthProperty());
+        appImageView.fitHeightProperty().bind(jfxButton.heightProperty());
+        appImageView.setPreserveRatio(true);
+        jfxButton.setGraphic(appImageView);
+    }
+
+    private JFXButton createApplicationTitleBar() {
+        JFXButton slogan = new JFXButton(" soba - a sober look at your finance ");
+        slogan.setId("appSlogan");
+        slogan.setDisable(true);
+        addCustomStylesheet(slogan, "window-jfx-title-bar");
+        return slogan;
     }
 
     private static JFXButton createMinimizeButton() {
@@ -76,9 +116,12 @@ public class WindowToolbarView implements ViewableScene {
 
     private JFXToolbar createRootToolbar() {
         JFXToolbar root = new JFXToolbar();
-        addCustomStylesheet(root, "window-jfx-tool-bar");
+        root.setId("appToolbar");
+        root.setLeftItems(appImageButton, appSloganButton);
         root.setRightItems(minimizeButton, maximizeButton, closeButton);
+        addCustomStylesheet(root, "window-jfx-tool-bar");
         initializeMouseDrag(root);
+        root.setTop(new AnchorPane());
         return root;
     }
 

@@ -1,14 +1,36 @@
+/*
+ * Top Border of the application.
+ */
+
 .window-jfx-button {
   -jfx-button-type: FLAT;
   -fx-text-fill: rgb(0, 0, 0);
   -fx-font-weight: bold;
   -fx-alignment: center;
+  -fx-font-size: 1.25em;
+}
+
+.window-jfx-title-bar-icon {
+  -jfx-button-type: RAISED;
+}
+
+.window-jfx-title-bar {
+  -jfx-button-type: FLAT;
+  -fx-text-fill: rgb(28, 28, 28);
+  -fx-font-weight: normal;
+  -fx-alignment: center;
+  -fx-font-size: 1.25em;
 }
 
 .button:hover {
-  -fx-background-color: rgba(49, 45, 45, 0.29);
+  -fx-background-color: rgba(49, 45, 45, 0.48);
 }
 
 .window-jfx-tool-bar {
-  -fx-background-color: rgb(96, 96, 96);
+  /* https://blog.e-zest.com/gradients-in-javafx-2/ */
+  -fx-background-color: linear-gradient(to bottom left, #525252, #606060);
 }
+
+/*
+ * ---------------------------------------------------------------------------------------------------------------
+ */

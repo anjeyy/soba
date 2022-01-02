@@ -26,12 +26,12 @@ public class SobaApplication extends Application {
 
         WindowToolbarView windowToolbarView = createWindowButtonsView();
         windowToolbarView.setBottomView(pane);
-        Scene scene3 = windowToolbarView.setup();
+        Scene scene = windowToolbarView.setup();
 
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setResizable(true);
         stage.setTitle("- soba -");
-        stage.setScene(scene3);
+        stage.setScene(scene);
         stage.show();
     }
 

@@ -15,4 +15,10 @@ _Current project status_: ![#f0ae15](https://via.placeholder.com/15/f0ae15/00000
 
 Image of current status.
 
-![current status](/docs/unique-window-style.png)
+- ![current status](/docs/unique-window-style-0001.png)
+
+---
+
+Images of earlier stages of progress. (Time descending)
+
+- ![status-0001](/docs/unique-window-style-0001.png)

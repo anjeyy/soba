@@ -14,13 +14,11 @@ import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
 @ExtendWith(ApplicationExtension.class)
-class WindowToolbarViewTest {
+class MaximizableWindowToolbarTest {
 
-    private Stage stage;
 
     @Start
     public void start(Stage stage) {
-        this.stage = stage;
         WindowToolbarModel windowToolbarModel = new WindowToolbarModel();
         WindowToolbarController windowToolbarController = new WindowToolbarController(windowToolbarModel);
         WindowToolbarView uut = new WindowToolbarView(windowToolbarController, windowToolbarModel);
@@ -42,39 +40,29 @@ class WindowToolbarViewTest {
         Assertions.assertThat(closeButton).extracting(Labeled::getText).isEqualTo(buttonText);
     }
 
-
-    @Test
-    void when_minimize_button_is_clicked_minimize_application(FxRobot fxRobot) {
-        // given-when
-        fxRobot.clickOn("#minimizeButton");
-
-        // then
-        ReadOnlyBooleanProperty minimized = stage.iconifiedProperty();
-        Assertions.assertThat(minimized.get()).isTrue();
-    }
-
     @Test
     void when_maximize_button_is_clicked_maximize_application(FxRobot fxRobot) {
         // given-when
         fxRobot.clickOn("#maximizeButton");
+        Stage currentStage = (Stage) fxRobot.listWindows().get(0);
 
         // then
-        ReadOnlyBooleanProperty maximized = stage.maximizedProperty();
+        ReadOnlyBooleanProperty maximized = currentStage.maximizedProperty();
         Assertions.assertThat(maximized.get()).isTrue();
     }
 
     @Test
     void when_maximize_button_is_clicked_twice_restore_previous_size(FxRobot fxRobot) {
         // given-when
+        Stage currentStage = (Stage) fxRobot.listWindows().get(0);
         fxRobot.clickOn("#maximizeButton");
-        ReadOnlyBooleanProperty maximized = stage.maximizedProperty();
+        ReadOnlyBooleanProperty maximized = currentStage.maximizedProperty();
         Assertions.assertThat(maximized.get()).isTrue();
         fxRobot.clickOn("#maximizeButton");
 
         // then
-        ReadOnlyBooleanProperty unMaximized = stage.maximizedProperty();
+        ReadOnlyBooleanProperty unMaximized = currentStage.maximizedProperty();
         Assertions.assertThat(unMaximized.get()).isFalse();
     }
 
-    //todo resolve when ALL test cases are ran!
 }
