@@ -31,6 +31,15 @@
   -fx-background-color: linear-gradient(to bottom left, #525252, #606060);
 }
 
+.window-jfx-box {
+  -fx-background-color: linear-gradient(to bottom left, #525252, #606060);
+}
+
 /*
  * ---------------------------------------------------------------------------------------------------------------
  */
+
+.entry-screen {
+  -fx-background-color: linear-gradient(#75da7a, #98d292),
+  radial-gradient(center 50% 50%, radius 50%, #FFFFFF33, #00000033);
+}

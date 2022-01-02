@@ -6,21 +6,25 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Objects;
 import javafx.application.Platform;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.anjeyy.soba.common.Coordinate;
 import org.anjeyy.soba.common.ScreenManager;
 import org.anjeyy.soba.common.StageManager;
-import org.anjeyy.soba.common.ViewableScene;
 
-public class WindowToolbarView implements ViewableScene {
+public class WindowToolbarView {
 
     private static final String JFX_BUTTON_CSS_CLASS = "window-jfx-button";
+
+    private final ObjectProperty<Node> mainScreenProperty = new SimpleObjectProperty<>();  //todo bind for vbox entry
 
     private final WindowToolbarController windowToolbarController;
     private final WindowToolbarModel windowToolbarModel;
@@ -30,6 +34,7 @@ public class WindowToolbarView implements ViewableScene {
     private final JFXButton maximizeButton;
     private final JFXButton closeButton;
     private final JFXToolbar jfxToolbar;
+    private final VBox layout;
 
     public WindowToolbarView(WindowToolbarController windowToolbarController, WindowToolbarModel windowToolbarModel) {
         this.windowToolbarController = windowToolbarController;
@@ -40,6 +45,7 @@ public class WindowToolbarView implements ViewableScene {
         this.maximizeButton = createMaximizeButton();
         this.closeButton = createCloseButton();
         this.jfxToolbar = createRootToolbar();
+        this.layout = createApplicationLayout();
     }
 
     private JFXButton createApplicationImageButton() {
@@ -144,15 +150,30 @@ public class WindowToolbarView implements ViewableScene {
         node.getStyleClass().add(cssClassName);
     }
 
-    public <E extends Node> void setBottomView(E node) {
-        jfxToolbar.setBottom(node);
+    private VBox createApplicationLayout() {
+        VBox windowLayout = new VBox();
+        windowLayout.getStyleClass().add("window-jfx-box");
+        windowLayout.getChildren().add(jfxToolbar);
+        return windowLayout;
     }
 
-    @Override
-    public Scene setup() {
-        Scene scene = ScreenManager.INSTANCE.createScene(jfxToolbar);
+    public <E extends Node> void setBottomView(E node) {
+        //todo refactor -> create property method
+        mainScreenProperty.addListener(
+            (observableValue, oldValue, newValue) -> layout.getChildren().setAll(jfxToolbar, newValue)
+        );
+    }
+
+    public Scene setup(Node node) {
+        setBottomView(node);
+        Scene scene = ScreenManager.INSTANCE.createScene(layout);
         loadCssStyle(scene);
         return scene;
+    }
+
+    public Scene setup() {
+        //Todo remove when adjusted
+        return null;
     }
 
     private void loadCssStyle(Scene scene) {
