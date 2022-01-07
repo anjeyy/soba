@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.Objects;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.anjeyy.soba.common.Coordinate;
 import org.anjeyy.soba.common.CustomStyleSheet;
@@ -19,7 +19,7 @@ public class WindowToolbarView implements CustomStyleSheet {
     private final LeftToolbarView leftToolbarView;
     private final RightToolbarView rightToolbarView;
     private final JFXToolbar jfxToolbar;
-    private final VBox layout;
+    private final BorderPane layout;
 
     public WindowToolbarView(WindowToolbarController windowToolbarController, WindowToolbarModel windowToolbarModel) {
         this.windowToolbarController = windowToolbarController;
@@ -58,22 +58,21 @@ public class WindowToolbarView implements CustomStyleSheet {
         });
     }
 
-    private VBox createApplicationLayout() {
-        VBox windowLayout = new VBox();
+    private BorderPane createApplicationLayout() {
+        BorderPane windowLayout = new BorderPane();
         windowLayout.getStyleClass().add("window-jfx-box");
-        windowLayout.getChildren().addAll(jfxToolbar);
+        windowLayout.setTop(jfxToolbar);
         return windowLayout;
     }
 
-    public Scene setup(Node node) {
-        setMainView(node);
+    public Scene setup() {
         Scene scene = ScreenManager.INSTANCE.createScene(layout);
         loadCssStyle(scene);
         return scene;
     }
 
-    public <E extends Node> void setMainView(E node) {
-        layout.getChildren().setAll(jfxToolbar, node);
+    public <E extends Node> void setMainParentForView(E node) {
+        layout.setCenter(node);
     }
 
     private void loadCssStyle(Scene scene) {

@@ -3,12 +3,11 @@ package org.anjeyy.soba;
 import com.jfoenix.controls.JFXMasonryPane;
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.anjeyy.soba.dashboard.DashboardController;
-import org.anjeyy.soba.welcome.WelcomeController;
 import org.anjeyy.soba.welcome.WelcomeView;
 import org.anjeyy.soba.window.WindowToolbarController;
 import org.anjeyy.soba.window.WindowToolbarModel;
@@ -27,11 +26,12 @@ public class SobaApplication extends Application {
         DashboardController dashboardController = new DashboardController();
         JFXMasonryPane pane = dashboardController.setup();
 
-        WelcomeController welcomeController = new WelcomeController();
-        BorderPane stackPane = welcomeController.setup();
+        WelcomeView welcomeView = createWelcomeView();
+        Parent welcomeViewParent = welcomeView.asParent();
 
         WindowToolbarView windowToolbarView = createWindowButtonsView();
-        Scene scene = windowToolbarView.setup(stackPane);
+        windowToolbarView.setMainParentForView(welcomeViewParent);
+        Scene scene = windowToolbarView.setup();
 
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setResizable(true);
@@ -40,8 +40,7 @@ public class SobaApplication extends Application {
     }
 
     private WelcomeView createWelcomeView() {
-        //todo
-        return null;
+        return new WelcomeView();
     }
 
     private WindowToolbarView createWindowButtonsView() {

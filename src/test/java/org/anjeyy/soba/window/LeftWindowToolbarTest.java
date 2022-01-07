@@ -3,7 +3,6 @@ package org.anjeyy.soba.window;
 import com.jfoenix.controls.JFXButton;
 import javafx.scene.Node;
 import javafx.scene.control.Labeled;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +21,7 @@ class LeftWindowToolbarTest {
         WindowToolbarModel windowToolbarModel = new WindowToolbarModel();
         WindowToolbarController windowToolbarController = new WindowToolbarController(windowToolbarModel);
         WindowToolbarView uut = new WindowToolbarView(windowToolbarController, windowToolbarModel);
-        stage.setScene(uut.setup(new Pane()));
+        stage.setScene(uut.setup());
         stage.show();
     }
 
