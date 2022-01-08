@@ -16,6 +16,14 @@ public enum ScreenManager {
         refresh();
     }
 
+    public double getWidth() {
+        return width;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
     public boolean refresh() {
         Screen currentScreen = Screen.getPrimary();
         Rectangle2D screenBound = currentScreen.getBounds();

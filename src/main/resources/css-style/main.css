@@ -28,7 +28,7 @@
 
 .window-jfx-tool-bar {
   /* https://blog.e-zest.com/gradients-in-javafx-2/ */
-  -fx-background-color: linear-gradient(to bottom left, #525252, #606060);
+  -fx-background-color: linear-gradient(to top left, #525252, #606060);
 }
 
 .window-jfx-box {

@@ -1,15 +1,13 @@
 package org.anjeyy.soba.window;
 
 import com.jfoenix.controls.JFXButton;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.anjeyy.soba.common.CustomStyleSheet;
+import org.anjeyy.soba.common.ImageLoader;
 
 class LeftToolbarView implements CustomStyleSheet {
 
@@ -46,10 +44,7 @@ class LeftToolbarView implements CustomStyleSheet {
     }
 
     private void createIconImage(JFXButton jfxButton) {
-        InputStream inputStream = Objects.requireNonNull(
-            getClass().getResourceAsStream("/image/icon-high-res.png"), "Could not load image.");
-        Image rawAppImage = new Image(inputStream);
-        ImageView appImageView = new ImageView(rawAppImage);
+        ImageView appImageView = ImageLoader.asImageView("/image/icon-high-res.png");
         appImageView.fitWidthProperty().bind(jfxButton.widthProperty());
         appImageView.fitHeightProperty().bind(jfxButton.heightProperty());
         appImageView.setPreserveRatio(true);
