@@ -28,9 +28,27 @@
 
 .window-jfx-tool-bar {
   /* https://blog.e-zest.com/gradients-in-javafx-2/ */
+  -fx-background-color: linear-gradient(to top left, #525252, #606060);
+}
+
+.window-jfx-box {
   -fx-background-color: linear-gradient(to bottom left, #525252, #606060);
+  -fx-border-color: rgba(35, 35, 35, 0.5);
+  -fx-border-insets: 0;
+  -fx-border-width: 1;
+  -fx-border-style: solid;
 }
 
 /*
  * ---------------------------------------------------------------------------------------------------------------
  */
+
+.entry-screen {
+  -fx-background-color: linear-gradient(#75da7a, #98d292),
+  radial-gradient(center 50% 50%, radius 50%, #FFFFFF33, #00000033);
+}
+
+.entry-screen-text {
+  -fx-text-fill: rgb(75, 74, 74);
+  -fx-font-size: 1.25em;
+}

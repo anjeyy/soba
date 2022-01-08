@@ -12,4 +12,6 @@ module org.anjeyy.soba {
     exports org.anjeyy.soba;
     exports org.anjeyy.soba.common;
     opens org.anjeyy.soba.common to javafx.fxml;
+    exports org.anjeyy.soba.scene;
+    opens org.anjeyy.soba.scene to javafx.fxml;
 }

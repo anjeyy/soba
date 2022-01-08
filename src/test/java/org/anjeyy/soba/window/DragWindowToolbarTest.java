@@ -2,6 +2,7 @@ package org.anjeyy.soba.window;
 
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
+import org.anjeyy.soba.common.StageManager;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +16,7 @@ class DragWindowToolbarTest {
 
     @Start
     public void start(Stage stage) {
+        StageManager.setCurrentStage(stage);
         WindowToolbarModel windowToolbarModel = new WindowToolbarModel();
         WindowToolbarController windowToolbarController = new WindowToolbarController(windowToolbarModel);
         WindowToolbarView uut = new WindowToolbarView(windowToolbarController, windowToolbarModel);

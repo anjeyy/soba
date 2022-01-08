@@ -10,15 +10,25 @@ _Current project status_: ![#f0ae15](https://via.placeholder.com/15/f0ae15/00000
 ## table of content
 
 - [Current progress](#current-progress)
+- [Screen examples of workflow](#screen-examples-of-workflow)
 
 ## current progress
 
 Image of current status.
 
-- ![current status](/docs/unique-window-style-0002.png)
+<img src="/docs/unique-window-style-0003.png" width="600" height="300" alt="status-0003">
 
 ---
 
 Images of earlier stages of progress. (Time descending)
 
-- ![status-0001](/docs/unique-window-style-0001.png)
+<img src="/docs/unique-window-style-0002.png" width="600" height="300" alt="status-0002">
+<img src="/docs/unique-window-style-0001.png" width="600" height="300" alt="status-0001">
+
+## Screen examples of workflow
+
+Following section is displaying different screens and common workflow scenarios.
+
+### Entry screen
+
+<img src="/docs/unique-window-style-0003.png" width="600" height="300" alt="status-0003">

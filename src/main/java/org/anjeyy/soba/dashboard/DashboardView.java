@@ -2,14 +2,24 @@ package org.anjeyy.soba.dashboard;
 
 import com.jfoenix.controls.JFXMasonryPane;
 import java.util.Random;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import org.anjeyy.soba.common.CustomStyleSheet;
+import org.anjeyy.soba.common.MainView;
 
-public class DashboardController {
+public class DashboardView implements CustomStyleSheet, MainView {
 
     private static final Random RANDOM = new Random();
 
-    public JFXMasonryPane setup() {
+    private final JFXMasonryPane mainContainer;
+
+    public DashboardView() {
+        this.mainContainer = createMainContainer();
+    }
+
+    private JFXMasonryPane createMainContainer() {
         JFXMasonryPane root = new JFXMasonryPane();
+        root.setId("dashBoardMainContainer");
         for (int i = 0; i < 100; i++) {
             Label label = new Label(i + "");
             label.setPrefSize(RANDOM.nextInt(100), RANDOM.nextInt(100));
@@ -22,5 +32,10 @@ public class DashboardController {
             root.getChildren().add(label);
         }
         return root;
+    }
+
+    @Override
+    public Parent asParent() {
+        return mainContainer;
     }
 }
