@@ -5,9 +5,24 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
-public enum StageManager {
+public class StageManager {
 
-    WELCOME;
+    private static Stage currentStage;
+
+    private StageManager() {
+        throw new UnsupportedOperationException("No instance allowed.");
+    }
+
+    public static Stage getCurrentStage() {
+        if (currentStage == null) {
+            throw new IllegalStateException("Stage has to be set.");
+        }
+        return currentStage;
+    }
+
+    public static void setCurrentStage(Stage newCurrentStage) {
+        currentStage = newCurrentStage;
+    }
 
 
     public static Stage extractStage(Node node) {

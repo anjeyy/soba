@@ -9,8 +9,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.anjeyy.soba.common.Coordinate;
 import org.anjeyy.soba.common.CustomStyleSheet;
-import org.anjeyy.soba.common.ScreenManager;
 import org.anjeyy.soba.common.StageManager;
+import org.anjeyy.soba.screen.ScreenModel;
 
 public class WindowToolbarView implements CustomStyleSheet {
 
@@ -19,7 +19,7 @@ public class WindowToolbarView implements CustomStyleSheet {
     private final LeftToolbarView leftToolbarView;
     private final RightToolbarView rightToolbarView;
     private final JFXToolbar jfxToolbar;
-    private final BorderPane layout;
+    private final BorderPane mainContainer;
 
     public WindowToolbarView(WindowToolbarController windowToolbarController, WindowToolbarModel windowToolbarModel) {
         this.windowToolbarController = windowToolbarController;
@@ -27,7 +27,7 @@ public class WindowToolbarView implements CustomStyleSheet {
         this.leftToolbarView = LeftToolbarView.create();
         this.rightToolbarView = new RightToolbarView(windowToolbarController, windowToolbarModel);
         this.jfxToolbar = createRootToolbar();
-        this.layout = createApplicationLayout();
+        this.mainContainer = createApplicationLayout();
     }
 
     private JFXToolbar createRootToolbar() {
@@ -66,13 +66,17 @@ public class WindowToolbarView implements CustomStyleSheet {
     }
 
     public Scene setup() {
-        Scene scene = ScreenManager.INSTANCE.createScene(layout);
+        Scene scene = new Scene(
+            mainContainer,
+            ScreenModel.INSTANCE.getInitialWidth(),
+            ScreenModel.INSTANCE.getInitialHeight()
+        );
         loadCssStyle(scene);
         return scene;
     }
 
     public <E extends Node> void setMainParentForView(E node) {
-        layout.setCenter(node);
+        mainContainer.setCenter(node);
     }
 
     private void loadCssStyle(Scene scene) {

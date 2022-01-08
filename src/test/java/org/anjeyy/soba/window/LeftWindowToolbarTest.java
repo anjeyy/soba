@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import javafx.scene.Node;
 import javafx.scene.control.Labeled;
 import javafx.stage.Stage;
+import org.anjeyy.soba.common.StageManager;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -18,6 +19,7 @@ class LeftWindowToolbarTest {
 
     @Start
     public void start(Stage stage) {
+        StageManager.setCurrentStage(stage);
         WindowToolbarModel windowToolbarModel = new WindowToolbarModel();
         WindowToolbarController windowToolbarController = new WindowToolbarController(windowToolbarModel);
         WindowToolbarView uut = new WindowToolbarView(windowToolbarController, windowToolbarModel);

@@ -1,6 +1,6 @@
 package org.anjeyy.soba.welcome;
 
-import javafx.animation.Animation;
+import java.util.Objects;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,17 +12,24 @@ import javafx.util.Duration;
 import org.anjeyy.soba.common.CustomStyleSheet;
 import org.anjeyy.soba.common.ImageLoader;
 import org.anjeyy.soba.common.MainView;
-import org.anjeyy.soba.common.ScreenManager;
+import org.anjeyy.soba.scene.SceneManager;
+import org.anjeyy.soba.screen.ScreenModel;
 
 public class WelcomeView implements CustomStyleSheet, MainView {
 
+    private final WelcomeController welcomeController;
+    private final WelcomeModel welcomeModel;
     private final ImageView logoImageView;
     private final Label clickInfoLabel;
+    private final FadeTransition clickInfoFadeTransition;
     private final BorderPane mainContainer;
 
-    public WelcomeView() {
+    public WelcomeView(WelcomeController welcomeController, WelcomeModel welcomeModel) {
+        this.welcomeController = welcomeController;
+        this.welcomeModel = welcomeModel;
         this.logoImageView = createLogoImageView();
         this.clickInfoLabel = createClickInfoLabel();
+        this.clickInfoFadeTransition = createClickInfoFadeTransition();
         this.mainContainer = createBorderPane();
     }
 
@@ -35,27 +42,29 @@ public class WelcomeView implements CustomStyleSheet, MainView {
 
     private void sizeScaleLogoImageView(ImageView logoImageView) {
         logoImageView.setPreserveRatio(true);
-        logoImageView.setFitWidth(ScreenManager.INSTANCE.getWidth() / 5);
-        logoImageView.setFitHeight(ScreenManager.INSTANCE.getHeight() / 6);
-        logoImageView.fitWidthProperty();
+        logoImageView.fitWidthProperty().bind(this.welcomeModel.logoWidthProperty());
+        logoImageView.fitHeightProperty().bind(this.welcomeModel.logoHeightProperty());
     }
 
     private Label createClickInfoLabel() {
         Label label = new Label("- click to continue -");
         label.setId("entryScreenClickLabel");
         CustomStyleSheet.super.add(label, "entry-screen-text");
-        setupBlinking(label);
         return label;
     }
 
-    private void setupBlinking(Label label) {
+    private FadeTransition createClickInfoFadeTransition() {
         FadeTransition fadeTransition = new FadeTransition();
-        fadeTransition.setNode(label);
+        fadeTransition.setNode(Objects.requireNonNull(this.clickInfoLabel, "No label provided for transition"));
         fadeTransition.setDuration(Duration.seconds(2.5));
         fadeTransition.setFromValue(1.0);
         fadeTransition.setToValue(0.0);
-        fadeTransition.setCycleCount(Animation.INDEFINITE);
-        fadeTransition.play();  //todo observable from entry-screen -> model necessary
+        fadeTransition.setAutoReverse(true);
+        // smooth hack to break animation up, instead of fadeTransition.setCycleCount(Animation.INDEFINITE)
+        fadeTransition.setCycleCount(2);
+        fadeTransition.setOnFinished(e -> fadeTransition.play());
+        fadeTransition.play();
+        return fadeTransition;
     }
 
     private BorderPane createBorderPane() {
@@ -71,15 +80,17 @@ public class WelcomeView implements CustomStyleSheet, MainView {
     }
 
     private void adjustLogoImageViewTopPosition() {
-        double screenHeight = ScreenManager.INSTANCE.getHeight() / 5;
-        BorderPane.setMargin(this.logoImageView, new Insets(screenHeight, 0, 0, 0));
+        double screenHeight = ScreenModel.INSTANCE.getInitialHeight() / 5;
+        BorderPane.setMargin(
+            this.logoImageView,
+            new Insets(screenHeight, 0, 0, 0)
+        );
     }
 
     private void initializeClickableEvent(BorderPane borderPane) {
-        //todo model?
-
         borderPane.setOnMouseClicked(e -> {
-            //todo set new scene
+            clickInfoFadeTransition.setOnFinished(null);
+            SceneManager.DASHBOARD.switchToScene();
         });
 
     }
