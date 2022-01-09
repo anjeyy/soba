@@ -89,8 +89,18 @@ public class WelcomeView implements CustomStyleSheet, MainView {
 
     private void initializeClickableEvent(BorderPane borderPane) {
         borderPane.setOnMouseClicked(e -> {
-            clickInfoFadeTransition.setOnFinished(null);
-            SceneManager.DASHBOARD.switchToScene();
+            int borderDiff = 5;
+            double xBorder = mainContainer.getWidth() - borderDiff;
+            double yBorder = mainContainer.getHeight() - borderDiff;
+            double xRightBorder = xBorder - e.getX();
+            double xLeftBorder = e.getX() - borderDiff;
+            double yBottomBorder = yBorder - e.getY();
+            double yTopBorder = e.getY() - borderDiff;
+            boolean insideBorder = (xRightBorder > 0 && xLeftBorder > 0) && (yBottomBorder > 0 && yTopBorder > 0);
+            if (insideBorder) {
+                clickInfoFadeTransition.setOnFinished(null);
+                SceneManager.DASHBOARD.switchToScene();
+            }
         });
 
     }

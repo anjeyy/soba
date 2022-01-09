@@ -45,12 +45,18 @@ public class WindowToolbarView implements CustomStyleSheet {
 
     private <E extends Node> void initializeMouseDrag(E node) {
         node.setOnMousePressed(e -> {
+            if (!e.isPrimaryButtonDown()) {
+                return;
+            }
             Stage stage = StageManager.extractStage(node);
             double xDiff = stage.getX() - e.getScreenX();
             double yDiff = stage.getY() - e.getScreenY();
             windowToolbarController.moveWindow(xDiff, yDiff);
         });
         node.setOnMouseDragged(e -> {
+            if (!e.isPrimaryButtonDown()) {
+                return;
+            }
             Stage stage = StageManager.extractStage(node);
             Coordinate mouseDrag = windowToolbarController.restoreScreenBound();
             stage.setX(e.getScreenX() + mouseDrag.x());
@@ -60,7 +66,8 @@ public class WindowToolbarView implements CustomStyleSheet {
 
     private BorderPane createApplicationLayout() {
         BorderPane windowLayout = new BorderPane();
-        windowLayout.getStyleClass().add("window-jfx-box");
+        windowLayout.setId("windowMainContainer");
+        CustomStyleSheet.super.add(windowLayout, "window-jfx-box");
         windowLayout.setTop(jfxToolbar);
         return windowLayout;
     }
