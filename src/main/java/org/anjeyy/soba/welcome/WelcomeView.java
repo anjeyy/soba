@@ -90,7 +90,7 @@ public class WelcomeView implements CustomStyleSheet, MainView {
 
     private void initializeClickableEvent(BorderPane borderPane) {
         borderPane.setOnMouseClicked(e -> {
-            //ToDo - extract into event class
+            //ToDo - extract into event class and all other events
             if (MouseEvent.MOUSE_CLICKED != e.getEventType()) {
                 return;
             }
