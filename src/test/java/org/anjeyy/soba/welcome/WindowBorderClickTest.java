@@ -20,12 +20,14 @@ import org.testfx.framework.junit5.Start;
 @ExtendWith(ApplicationExtension.class)
 class WindowBorderClickTest {
 
+    private WindowToolbarView mainContainer;
+
     @Start
     public void start(Stage stage) {
         StageManager.setCurrentStage(stage);
         WindowToolbarModel windowToolbarModel = new WindowToolbarModel();
         WindowToolbarController windowToolbarController = new WindowToolbarController(windowToolbarModel);
-        WindowToolbarView mainContainer = new WindowToolbarView(windowToolbarController, windowToolbarModel);
+        mainContainer = new WindowToolbarView(windowToolbarController, windowToolbarModel);
         SceneView entryScreenScene = SceneManager.ENTRY_SCREEN.getSceneView();
         mainContainer.setMainParentForView(entryScreenScene.asParent());
         stage.setScene(mainContainer.setup());
@@ -120,7 +122,8 @@ class WindowBorderClickTest {
         Assertions.assertThat(afterClickScene).isInstanceOf(WelcomeScene.class);
     }
 
-    private static Bounds getWindowBounds(FxRobot fxRobot) {
+    private Bounds getWindowBounds(FxRobot fxRobot) {
+        fxRobot.interact(SceneManager.ENTRY_SCREEN::switchToScene);
         SceneView beforeClickScene = SceneManager.getCurrentSceneView();
         Assertions.assertThat(beforeClickScene).isInstanceOf(WelcomeScene.class);
 
