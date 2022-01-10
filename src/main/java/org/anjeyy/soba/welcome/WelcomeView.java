@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 import org.anjeyy.soba.common.CustomStyleSheet;
@@ -89,8 +90,22 @@ public class WelcomeView implements CustomStyleSheet, MainView {
 
     private void initializeClickableEvent(BorderPane borderPane) {
         borderPane.setOnMouseClicked(e -> {
-            clickInfoFadeTransition.setOnFinished(null);
-            SceneManager.DASHBOARD.switchToScene();
+            //ToDo - extract into event class
+            if (MouseEvent.MOUSE_CLICKED != e.getEventType()) {
+                return;
+            }
+            int borderDiff = 5;
+            double xBorder = mainContainer.getWidth() - borderDiff;
+            double yBorder = mainContainer.getHeight() - borderDiff;
+            double xRightBorder = xBorder - e.getX();
+            double xLeftBorder = e.getX() - borderDiff;
+            double yBottomBorder = yBorder - e.getY();
+            double yTopBorder = e.getY() - borderDiff;
+            boolean insideBorder = (xRightBorder > 0 && xLeftBorder > 0) && (yBottomBorder > 0 && yTopBorder > 0);
+            if (insideBorder) {
+                clickInfoFadeTransition.setOnFinished(null);
+                SceneManager.DASHBOARD.switchToScene();
+            }
         });
 
     }
