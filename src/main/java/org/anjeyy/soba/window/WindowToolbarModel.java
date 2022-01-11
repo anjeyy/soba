@@ -12,7 +12,7 @@ public class WindowToolbarModel {
         this.maximized = false;
     }
 
-    boolean isMaximized() {
+    public boolean isMaximized() {
         return maximized;
     }
 

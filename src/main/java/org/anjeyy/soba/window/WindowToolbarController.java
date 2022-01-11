@@ -10,20 +10,20 @@ public class WindowToolbarController {
         this.windowToolbarModel = windowToolbarModel;
     }
 
-    void maximize() {
+    public void maximize() {
         windowToolbarModel.maximize();
     }
 
-    void restoreMaximize() {
+    public void restoreMaximize() {
         windowToolbarModel.restoreMaximize();
     }
 
-    void moveWindow(double x, double y) {
+    public void moveWindow(double x, double y) {
         Coordinate mouseDrag = Coordinate.from(x, y);
         windowToolbarModel.moveWindow(mouseDrag);
     }
 
-    Coordinate restoreScreenBound() {
+    public Coordinate restoreScreenBound() {
         return windowToolbarModel.restoreToBackupSize();
     }
 }

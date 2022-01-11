@@ -6,11 +6,10 @@ import java.util.Objects;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
-import org.anjeyy.soba.common.Coordinate;
 import org.anjeyy.soba.common.CustomStyleSheet;
-import org.anjeyy.soba.common.StageManager;
 import org.anjeyy.soba.screen.ScreenModel;
+import org.anjeyy.soba.window.event.MouseDraggedActionEventHandler;
+import org.anjeyy.soba.window.event.MousePressedActionEventHandler;
 
 public class WindowToolbarView implements CustomStyleSheet {
 
@@ -44,24 +43,8 @@ public class WindowToolbarView implements CustomStyleSheet {
     }
 
     private <E extends Node> void initializeMouseDrag(E node) {
-        node.setOnMousePressed(e -> {
-            if (!e.isPrimaryButtonDown()) {
-                return;
-            }
-            Stage stage = StageManager.extractStage(node);
-            double xDiff = stage.getX() - e.getScreenX();
-            double yDiff = stage.getY() - e.getScreenY();
-            windowToolbarController.moveWindow(xDiff, yDiff);
-        });
-        node.setOnMouseDragged(e -> {
-            if (!e.isPrimaryButtonDown()) {
-                return;
-            }
-            Stage stage = StageManager.extractStage(node);
-            Coordinate mouseDrag = windowToolbarController.restoreScreenBound();
-            stage.setX(e.getScreenX() + mouseDrag.x());
-            stage.setY(e.getScreenY() + mouseDrag.y());
-        });
+        node.setOnMousePressed(MousePressedActionEventHandler.with(windowToolbarController));
+        node.setOnMouseDragged(MouseDraggedActionEventHandler.with(windowToolbarController));
     }
 
     private BorderPane createApplicationLayout() {

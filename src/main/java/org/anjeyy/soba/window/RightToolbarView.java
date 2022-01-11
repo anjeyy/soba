@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.scene.Node;
-import javafx.stage.Stage;
 import org.anjeyy.soba.common.CustomStyleSheet;
-import org.anjeyy.soba.common.StageManager;
+import org.anjeyy.soba.window.event.CloseActionEventHandler;
+import org.anjeyy.soba.window.event.MinimizeActionEventHandler;
 
 class RightToolbarView implements CustomStyleSheet {
 
@@ -32,10 +32,7 @@ class RightToolbarView implements CustomStyleSheet {
         JFXButton minimize = new JFXButton("-");
         minimize.setId("minimizeButton");
         CustomStyleSheet.super.add(minimize, JFX_BUTTON_CSS_CLASS);
-        minimize.setOnAction(event -> {
-            Stage stage = StageManager.extractStage(minimize);
-            stage.setIconified(true);
-        });
+        minimize.setOnAction(MinimizeActionEventHandler.create());
         return minimize;
     }
 
@@ -43,22 +40,8 @@ class RightToolbarView implements CustomStyleSheet {
         JFXButton maximize = new JFXButton("□");
         maximize.setId("maximizeButton");
         CustomStyleSheet.super.add(maximize, JFX_BUTTON_CSS_CLASS);
-        maximize.setOnAction(event -> {
-            boolean alteredMaximize = alterMaximizeButton();
-            Stage stage = StageManager.extractStage(maximize);
-            stage.setMaximized(alteredMaximize);
-        });
+        maximize.setOnAction(CloseActionEventHandler.with(windowToolbarController, windowToolbarModel));
         return maximize;
-    }
-
-    private boolean alterMaximizeButton() {
-        boolean isMaximized = windowToolbarModel.isMaximized();
-        if (isMaximized) {
-            windowToolbarController.restoreMaximize();
-        } else {
-            windowToolbarController.maximize();
-        }
-        return !isMaximized;
     }
 
     private JFXButton createCloseButton() {
