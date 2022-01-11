@@ -7,13 +7,11 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 import org.anjeyy.soba.common.CustomStyleSheet;
 import org.anjeyy.soba.common.ImageLoader;
 import org.anjeyy.soba.common.MainView;
-import org.anjeyy.soba.scene.SceneManager;
 import org.anjeyy.soba.screen.ScreenModel;
 
 public class WelcomeView implements CustomStyleSheet, MainView {
@@ -76,7 +74,7 @@ public class WelcomeView implements CustomStyleSheet, MainView {
         borderPane.setTop(this.logoImageView);
         borderPane.setCenter(this.clickInfoLabel);
         adjustLogoImageViewTopPosition();
-        initializeClickableEvent(borderPane);
+        borderPane.setOnMouseClicked(IntroClickedMouseEventHandler.with(borderPane, clickInfoFadeTransition));
         return borderPane;
     }
 
@@ -86,28 +84,6 @@ public class WelcomeView implements CustomStyleSheet, MainView {
             this.logoImageView,
             new Insets(screenHeight, 0, 0, 0)
         );
-    }
-
-    private void initializeClickableEvent(BorderPane borderPane) {
-        borderPane.setOnMouseClicked(e -> {
-            //ToDo - extract into event class and all other events
-            if (MouseEvent.MOUSE_CLICKED != e.getEventType()) {
-                return;
-            }
-            int borderDiff = 5;
-            double xBorder = mainContainer.getWidth() - borderDiff;
-            double yBorder = mainContainer.getHeight() - borderDiff;
-            double xRightBorder = xBorder - e.getX();
-            double xLeftBorder = e.getX() - borderDiff;
-            double yBottomBorder = yBorder - e.getY();
-            double yTopBorder = e.getY() - borderDiff;
-            boolean insideBorder = (xRightBorder > 0 && xLeftBorder > 0) && (yBottomBorder > 0 && yTopBorder > 0);
-            if (insideBorder) {
-                clickInfoFadeTransition.setOnFinished(null);
-                SceneManager.DASHBOARD.switchToScene();
-            }
-        });
-
     }
 
     @Override

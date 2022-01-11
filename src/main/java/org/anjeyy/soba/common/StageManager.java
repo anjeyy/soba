@@ -1,5 +1,6 @@
 package org.anjeyy.soba.common;
 
+import java.util.EventObject;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -24,6 +25,10 @@ public class StageManager {
         currentStage = newCurrentStage;
     }
 
+    public static Stage extractStage(EventObject eventObject) {
+        Node node = (Node) eventObject.getSource();
+        return extractStage(node);
+    }
 
     public static Stage extractStage(Node node) {
         Scene scene = node.getScene();
