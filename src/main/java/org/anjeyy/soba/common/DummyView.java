@@ -17,7 +17,7 @@ public class DummyView implements CustomStyleSheet, MainView {
 
     private JFXMasonryPane createMainContainer() {
         JFXMasonryPane root = new JFXMasonryPane();
-        root.setId("dashBoardMainContainer");
+        root.setId("dummyView");
         for (int i = 0; i < 100; i++) {
             Label label = new Label(i + "");
             label.setPrefSize(RANDOM.nextInt(100), RANDOM.nextInt(100));
