@@ -2,6 +2,8 @@ package org.anjeyy.soba.scene;
 
 import javafx.scene.Parent;
 import org.anjeyy.soba.common.MainView;
+import org.anjeyy.soba.dashboard.DashboardController;
+import org.anjeyy.soba.dashboard.DashboardModel;
 import org.anjeyy.soba.dashboard.DashboardView;
 
 public class DashboardScene implements SceneView {
@@ -13,7 +15,9 @@ public class DashboardScene implements SceneView {
     }
 
     private DashboardView createDashboardView() {
-        return new DashboardView();
+        DashboardController dashboardController = new DashboardController();
+        DashboardModel dashboardModel = new DashboardModel();
+        return new DashboardView(dashboardController, dashboardModel);
     }
 
     static DashboardScene create() {
