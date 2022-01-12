@@ -73,5 +73,8 @@ public class WindowToolbarView implements CustomStyleSheet {
         URL mainCssUrl = WindowToolbarView.class.getClassLoader().getResource("css-style/main.css");
         scene.getStylesheets()
              .add(Objects.requireNonNull(mainCssUrl, "Could not load main.css file.").toExternalForm());
+        URL dashboardCssUrl = WindowToolbarView.class.getClassLoader().getResource("css-style/dashboard.css");
+        scene.getStylesheets()
+             .add(Objects.requireNonNull(dashboardCssUrl, "Could not load dashboard.css file.").toExternalForm());
     }
 }

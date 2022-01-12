@@ -93,8 +93,7 @@ public abstract class AbstractWindowResizeListener implements EventHandler<Mouse
 
     final boolean isInsideLeftBorder(MouseEvent event) {
         double xMousePos = event.getX();
-        double leftResizeBorder = stage.getX() + RESIZE_BORDER;
-        return xMousePos < leftResizeBorder;
+        return xMousePos < RESIZE_BORDER;
     }
 
     abstract void handleMouseRelease(MouseEvent event);
