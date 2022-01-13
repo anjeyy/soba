@@ -8,7 +8,8 @@ import org.anjeyy.soba.window.WindowToolbarView;
 public enum SceneManager {
 
     ENTRY_SCREEN(WelcomeScene.create()),
-    DASHBOARD(DashboardScene.create());
+    DASHBOARD(DashboardScene.create()),
+    DUMMY(DummyScene.create());
 
     private static final WindowToolbarView mainContainer = createMainWindowContainer();
 

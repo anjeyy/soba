@@ -1,0 +1,13 @@
+/*
+ * ToDo shadow for year boxes
+ */
+
+.year-button .jfx-button {
+  -jfx-button-type: RAISED;
+  -fx-text-fill: rgb(0, 0, 0);
+  -fx-font-weight: bold;
+  -fx-alignment: center;
+  -fx-font-size: 1.25em;
+  -fx-background-color: rgb(79, 98, 126);
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+}
